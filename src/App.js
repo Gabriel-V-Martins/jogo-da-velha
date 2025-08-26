@@ -1,9 +1,12 @@
 //creation of the square element that will compose the board
 import './App.css'
 
-function Square({valor}){
-  return(
-    <button className="square">{valor}</button>
+function Square({ valor }) {
+  function handleClick() {
+    console.log("Botão clicado!!!");
+  }
+  return (
+    <button className="square" onClick={handleClick}>{valor}</button>
   );
 }
 
