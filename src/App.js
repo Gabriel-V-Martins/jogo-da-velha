@@ -1,12 +1,10 @@
 //creation of the square element that will compose the board
+import { useState } from 'react';
 import './App.css'
 
-function Square({ valor }) {
-  function handleClick() {
-    console.log("Botão clicado!!!");
-  }
+function Square(valor, onSquareClick) {
   return (
-    <button className="square" onClick={handleClick}>{valor}</button>
+    <button className="square" onClick={onSquareClick}>{valor}</button>
   );
 }
 
@@ -14,19 +12,19 @@ export default function Tabuleiro() {
   return (
     <div>
       <div>
-        <Square valor="1"></Square>
-        <Square valor="2"></Square>
-        <Square valor="3"></Square>
+        <Square></Square>
+        <Square></Square>
+        <Square></Square>
       </div>
       <div>
-        <Square valor="4"></Square>
-        <Square valor="5"></Square>
-        <Square valor="6"></Square>
+        <Square></Square>
+        <Square></Square>
+        <Square></Square>
       </div>
       <div>
-        <Square valor="7"></Square>
-        <Square valor="8"></Square>
-        <Square valor="9"></Square>
+        <Square></Square>
+        <Square></Square>
+        <Square></Square>
       </div>
     </div>
 
