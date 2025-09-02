@@ -26,7 +26,7 @@ function Tabuleiro({ xIsNext, squares, onPlay }) {
   const vencedor = haVencedor(squares);
   let status;
   if (vencedor) {
-    status = "Vencedor" + vencedor;
+    status = "Vencedor: " + vencedor;
   } else {
     status = "Próximo a jogar: " + (xIsNext ? "X" : "O");
   }
@@ -56,11 +56,48 @@ function Tabuleiro({ xIsNext, squares, onPlay }) {
   )
 }
 
-export default function game() {
+export default function Game() {
   const [history, setHistory] = useState([Array[9].fill(null)]);
-  const [squares, setSquares] = useState(Array(9).fill(null));
-  const [xIsNext, setXIsNext] = useState(true);
-}
+  const [currentMove, setCurrentMove] = useState(true);
+  const xIsNext = currentMove % 2 === 0;
+  const currentSquare = history[currentMove];
+
+  function handlePlay(nextSquares) {
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+  }
+
+  function jumpTo(nextMove) {
+    setCurrentMove(nextMove);
+  }
+
+  const moves = history.map((squares, move) => {
+    let description;
+    if (move > 0) {
+      description = "Vai para o movimento do #" + move;
+    } else {
+      description = "Vai para o inicio do jogo!";
+    }
+    return (
+      <li key={move}>
+        <button onClick={() => jumpTo(move)}>{description}</button>
+      </li>
+    );
+  });
+
+  return (
+    <div className="game">
+      <div className="gamo-board">
+        <Tabuleiro xIsNext={xIsNext} squares={currentSquare} onPlay={handlePlay} />
+      </div>
+      <div className="game-info">
+        <ol>{moves}</ol>
+      </div>
+    </div>
+  );
+
+};
 
 function haVencedor(squares) {
   // Linhas
